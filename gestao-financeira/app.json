@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "gestao-financeira",
+    "slug": "gestao-financeira",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": false,
+    "scheme": "gestao-financeira",
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.gabriel.gestaofinanceira",
+      "adaptiveIcon": {
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router"
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "2c0cfd20-1844-4b75-a131-850595fe419b"
+      }
+    },
+    "owner": "gbrcrvg"
+  }
+}

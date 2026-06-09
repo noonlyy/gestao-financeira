@@ -1,0 +1,15 @@
+# Dependências instaladas (são recriadas com npm install)
+node_modules/
+dist/
+
+# ARQUIVO SECRETO (Senha do banco, chaves, etc.)
+.env
+
+# Logs e arquivos do sistema
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+
+# Pasta de migrações locais do Prisma (opcional, mas bom ignorar logs)
+prisma/dev.db
