@@ -1,14 +1,21 @@
-// contexts/GlobalState.jsx
 import { createContext, useCallback, useEffect, useState } from "react";
 import { api } from "../services/api";
 
 export const MoneyContext = createContext();
 
 export default function GlobalState({ children }) {
+  // Novo estado para guardar o usuário logado
+  const [user, setUser] = useState(null); 
+
   const [transactions, setTransactions] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Nova função para fazer login
+  const loginUser = useCallback((name) => {
+    setUser({ name });
+  }, []);
 
   const refresh = useCallback(async () => {
     setLoading(true); 
@@ -58,10 +65,17 @@ export default function GlobalState({ children }) {
     }
   }, []);
 
+  // AJUSTADO: Agora limpa a categoria E some com os gastos vinculados na mesma hora!
   const removeCategory = useCallback(async (id) => {
     try {
       await api.deleteCategory(id);
+      
+      // 1. Remove a categoria deletada da lista de categorias
       setCategories((prev) => prev.filter((cat) => cat.id !== id));
+      
+      // 2. O PULO DO GATO: Filtra e joga fora da tela todas as transações que pertenciam a essa categoria excluída!
+      setTransactions((prev) => prev.filter((tx) => tx.categoryId !== id));
+
     } catch (e) {
       alert("Erro ao remover categoria: " + e.message);
     }
@@ -69,6 +83,7 @@ export default function GlobalState({ children }) {
 
   return (
     <MoneyContext.Provider value={{
+      user, loginUser, // <-- Disponibilizando para o resto do app
       transactions, categories, loading, error, refresh,
       addTransaction, removeTransaction, addCategory, removeCategory,
     }}>

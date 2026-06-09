@@ -1,68 +1,69 @@
-import { Tabs } from "expo-router";
-import { colors } from "../../constants/colors";
-import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import React from 'react';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Tabs } from 'expo-router';
 
-export default function TabsLayout() {
+export default function TabLayout() {
   return (
-    <Tabs
+    <Tabs 
       screenOptions={{
-        headerStyle: { backgroundColor: colors.primary },
-        headerTintColor: colors.primaryContrast,
-        headerTitleAlign: "center",
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.inactive,
-        tabBarHideOnKeyboard: true, 
-        tabBarStyle: {
-            height: 60,
-            paddingTop: 5,
-            backgroundColor: colors.background
+        tabBarActiveTintColor: '#000000', 
+        tabBarInactiveTintColor: '#999999', 
+        
+        headerStyle: {
+          backgroundColor: '#000000', 
+          borderBottomWidth: 1,
+          borderBottomColor: '#333333',
         },
-        tabBarButton: (props) => <TouchableOpacity {...props} activeOpacity={0.8}/>
+        headerTintColor: '#FFFFFF', 
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          fontSize: 20,
+        },
+        
+        tabBarStyle: {
+          backgroundColor: '#FFFFFF',
+          borderTopWidth: 1,
+          borderTopColor: '#E0E0E0',
+          height: 60,
+          paddingBottom: 8,
+        },
       }}
     >
+      {/* ABA 1: INDEX */}
       <Tabs.Screen
         name="index"
         options={{
-          title: "Transações",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="attach-money" size={28} color={color} />
-          )
+          title: 'Transações',
+          tabBarIcon: ({ color }) => <FontAwesome size={24} name="exchange" color={color} />,
         }}
       />
-      <Tabs.Screen
-        name="add-transactions"
-        options={{
-          title: "Adicionar Transação",
-          tabBarLabel: "",
-          tabBarIcon: () => (
-            <View style={styles.addButton}>
-              <MaterialIcons name="add" size={40} color={colors.primaryContrast} />
-            </View>
-          )
-        }}
-      />
+
+      {/* ABA 2: RESUMO */}
       <Tabs.Screen
         name="summary"
         options={{
-          title: "Resumo",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="pie-chart" size={28} color={color} />
-          )
+          title: 'Resumo',
+          tabBarIcon: ({ color }) => <FontAwesome size={24} name="pie-chart" color={color} />,
+        }}
+      />
+
+      {/* ABA 3: ADD TRANSACTIONS */}
+      <Tabs.Screen
+        name="add-transactions" 
+        options={{
+          title: 'Nova Transação',
+          tabBarIcon: ({ color }) => <FontAwesome size={24} name="plus-circle" color={color} />,
+        }}
+      />
+
+      {/* ABA 4: GERENCIAR CATEGORIAS (Corrigindo o ícone e o texto) */}
+      <Tabs.Screen
+        name="categories"
+        options={{
+          title: 'Categorias',
+          tabBarIcon: ({ color }) => <FontAwesome size={24} name="tags" color={color} />,
         }}
       />
     </Tabs>
   );
 }
-
-const styles = StyleSheet.create({
-  addButton: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    height: 64,
-    width: 64,
-    borderRadius: 32,
-    backgroundColor: colors.primary
-  }
-});
